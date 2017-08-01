@@ -1,19 +1,23 @@
 const express = require( 'express' );
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
+const socketio = require('socket.io');
+
 const app = express(); // creates an instance of an express application
 
-app.use('/', routes);
+var server = app.listen(3000, function() {
+    console.log("server listening on 3000");
+})
+var io = socketio.listen(server);
+
+app.use('/', routes(io));
 
 app.set('view engine', 'html');
+
 app.engine('html', nunjucks.render); 
 nunjucks.configure('views', {
     noCache: true
 });
-
-app.listen(3000, function() {
-    console.log("server listening");
-})
 
 app.use(function (req, res, next) {
     console.log(`${req.method} ${req.url}`);
