@@ -1,12 +1,14 @@
 const express = require( 'express' );
 const nunjucks = require('nunjucks');
+const routes = require('./routes');
 const app = express(); // creates an instance of an express application
+
+app.use('/', routes);
 
 app.set('view engine', 'html');
 app.engine('html', nunjucks.render); 
 nunjucks.configure('views', {
-    noCache: true,
-    express: app,
+    noCache: true
 });
 
 app.listen(3000, function() {
@@ -24,28 +26,3 @@ app.use('/special/*', function(req, res, next) {
     console.log("You did it!!");
     next();
 })
-
-var locals = {
-    title: 'Twitter Wkshp',
-    people: [
-        {name:'Gandalf'},
-        {name:'Frodo'},
-        {name:'Hermione'}
-    ]
-};
-
-app.get('/', function(req, res) {
-    res.render("index.html",locals);
-});
-
-var locals = {
-    title: 'Twitter Wkshp',
-    people: [
-        {name:'Gandalf'},
-        {name:'Frodo'},
-        {name:'Hermione'}
-    ]
-};
-
-
-

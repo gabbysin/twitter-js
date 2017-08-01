@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mymary08054/twitter-js#readme",
   "dependencies": {
     "express": "^4.15.3",
+    "lodash": "^4.17.4",
     "nunjucks": "^3.0.1"
   }
 }
