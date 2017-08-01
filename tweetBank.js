@@ -39,4 +39,4 @@ var func = function(o) {
     return o.content.includes('amazing'); 
 }
 
-console.log(list());
+// console.log(list());
