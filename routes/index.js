@@ -9,7 +9,7 @@ router.use(bodyparser.urlencoded({extended:false}));
 router.use(bodyparser.json()); 
 
 router.get('/', function (req, res) {
-  var tweets = tweetBank.list();
+    var tweets = tweetBank.list();
   res.render( 'index', { tweets:tweets, showForm:true } );
 });
 
@@ -18,9 +18,24 @@ router.get( '/users/:name', function (req, res) {
   var list = tweetBank.find(function(o){
     return o.name.includes(name);
   });
-  res.render('index', {tweets:list });
+  res.render('index', {tweets:list, showForm:true, name:name});
 });
 
-// router.post(''. function(){})
+router.get( '/tweets/:id', function (req, res) {
+  var id = req.params.id;
+  
+  var list = tweetBank.find(function(o){
+    return o.id === parseInt(id);
+  });
+  var name = list[0].name;
+  res.render('index', {tweets:list, showForm:true, name:name });
+});
+
+router.post('/tweets', function(req, res) {
+  var name = req.body.name;
+  var text = req.body.text;
+  tweetBank.add(name, text);
+  res.redirect('/');
+});
 
 module.exports = router;
