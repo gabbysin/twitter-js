@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mymary08054/twitter-js#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "nunjucks": "^3.0.1"
   }
 }

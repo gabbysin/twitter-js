@@ -1,5 +1,13 @@
 const express = require( 'express' );
+const nunjucks = require('nunjucks');
 const app = express(); // creates an instance of an express application
+
+app.set('view engine', 'html');
+app.engine('html', nunjucks.render); 
+nunjucks.configure('views', {
+    noCache: true,
+    express: app,
+});
 
 app.listen(3000, function() {
     console.log("server listening");
@@ -17,7 +25,27 @@ app.use('/special/*', function(req, res, next) {
     next();
 })
 
+var locals = {
+    title: 'Twitter Wkshp',
+    people: [
+        {name:'Gandalf'},
+        {name:'Frodo'},
+        {name:'Hermione'}
+    ]
+};
 
 app.get('/', function(req, res) {
-    res.send("welcome back!");
-}) 
+    res.render("index.html",locals);
+});
+
+var locals = {
+    title: 'Twitter Wkshp',
+    people: [
+        {name:'Gandalf'},
+        {name:'Frodo'},
+        {name:'Hermione'}
+    ]
+};
+
+
+
